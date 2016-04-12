@@ -9,11 +9,11 @@ class AlbumsController < ApplicationController
 	end
 
 	def new
-		@album = Album.new
+		@album = current_user.albums.build 
 	end
 
 	def create
-		@album = Album.new(album_params)
+		@album = current_user.albums.build(album_params)
 		if @album.save
 			redirect_to root_path
 		else
@@ -33,6 +33,9 @@ class AlbumsController < ApplicationController
 	end
 
 	def destroy
+		if @book.destroy
+			redirect_to root_path
+		end
 	end
 
 private
